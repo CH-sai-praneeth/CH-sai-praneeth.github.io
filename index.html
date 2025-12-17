@@ -15,23 +15,23 @@
 </head>
 
   <!-- clock -->
-<script>
-  function updateClock() {
-    const now = new Date();
-    const time = now.toLocaleTimeString([], {
-      hour: '2-digit',
-      minute: '2-digit',
-      second: '2-digit'
-    });
-    document.getElementById('clock').textContent = time;
-  }
+  <script>
+    function updateClock() {
+      const now = new Date();
+      const time = now.toLocaleTimeString([], {
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+      });
+      document.getElementById('clock').textContent = time;
+    }
 
-  setInterval(updateClock, 1000);
-  updateClock();
-</script>
-
-
+    setInterval(updateClock, 1000);
+    updateClock();
+  </script>
 <body>
+
+  <div class="clock" id="clock"></div>
 
   <!-- HERO SECTION -->
   <section class="hero">
