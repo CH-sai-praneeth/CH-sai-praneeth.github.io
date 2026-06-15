@@ -1,201 +1,935 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- BASIC META -->
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Venkata Mani Sai Praneeth Chidella</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sai Praneeth Chidella — AI Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0F1419;
+    --bg-elevated:#161D24;
+    --text:#EDEAE3;
+    --text-dim:#8B95A1;
+    --accent:#FF9F45;
+    --teal:#5EC8B8;
+    --line:#262E37;
+    --line-bright:#3A4451;
+    --display:'Space Grotesk',sans-serif;
+    --body:'IBM Plex Sans',sans-serif;
+    --mono:'IBM Plex Mono',monospace;
+  }
 
-  <!--STYLES-->
-  <link rel="stylesheet" href="style.css" />
+  html[data-theme="light"]{
+    --bg:#F7F5F0;
+    --bg-elevated:#FFFFFF;
+    --text:#1A1F26;
+    --text-dim:#6B7480;
+    --accent:#D97A2B;
+    --teal:#1F8C7D;
+    --line:#E4E0D8;
+    --line-bright:#CFC9BD;
+  }
 
-  <!--GOOGLE FONT-->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  *{margin:0;padding:0;box-sizing:border-box;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--body);
+    line-height:1.6;
+    font-weight:300;
+    -webkit-font-smoothing:antialiased;
+    transition:background .25s ease, color .25s ease;
+  }
+
+  a{color:inherit;text-decoration:none;}
+
+  .wrap{max-width:1080px;margin:0 auto;padding:0 32px;}
+
+  /* ===== NAV ===== */
+  header{
+    position:fixed;top:0;left:0;right:0;
+    z-index:100;
+    background:rgba(15,20,25,0.85);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  nav{
+    max-width:1080px;margin:0 auto;padding:18px 32px;
+    display:flex;justify-content:space-between;align-items:center;
+  }
+  .logo{
+    font-family:var(--mono);
+    font-size:14px;
+    color:var(--accent);
+    letter-spacing:0.05em;
+  }
+  .nav-links{display:flex;gap:32px;}
+  .nav-links a{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--text-dim);
+    letter-spacing:0.04em;
+    transition:color .2s ease;
+    text-transform:lowercase;
+  }
+  .nav-links a:hover{color:var(--accent);}
+
+  .nav-right{
+    display:flex;
+    align-items:center;
+    gap:24px;
+  }
+
+  .clock{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--text-dim);
+    letter-spacing:0.04em;
+    white-space:nowrap;
+  }
+
+  .theme-toggle{
+    width:36px;height:36px;
+    border:1px solid var(--line-bright);
+    border-radius:4px;
+    background:transparent;
+    color:var(--text-dim);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    transition:color .2s ease, border-color .2s ease;
+    flex-shrink:0;
+  }
+  .theme-toggle:hover{
+    color:var(--accent);
+    border-color:var(--accent);
+  }
+  .theme-toggle svg{width:16px;height:16px;}
+  .theme-toggle .icon-sun{display:none;}
+  html[data-theme="light"] .theme-toggle .icon-moon{display:none;}
+  html[data-theme="light"] .theme-toggle .icon-sun{display:block;}
+
+  @media (max-width:760px){
+    .clock{display:none;}
+  }
+
+  /* ===== HERO ===== */
+  .hero{
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    padding-top:80px;
+    position:relative;
+    overflow:hidden;
+  }
+
+  .hero-grid{
+    position:absolute;
+    inset:0;
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size:64px 64px;
+    opacity:0.25;
+    mask-image:linear-gradient(to bottom, transparent, rgba(0,0,0,0.6) 30%, transparent 90%);
+    -webkit-mask-image:linear-gradient(to bottom, transparent, rgba(0,0,0,0.6) 30%, transparent 90%);
+  }
+
+  .hero-content{position:relative;z-index:2;}
+
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--teal);
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    margin-bottom:24px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .eyebrow::before{
+    content:'';
+    display:inline-block;
+    width:8px;height:8px;
+    background:var(--teal);
+    border-radius:50%;
+    box-shadow:0 0 0 0 rgba(94,200,184,0.6);
+    animation:pulse 2.4s infinite;
+  }
+  @keyframes pulse{
+    0%{box-shadow:0 0 0 0 rgba(94,200,184,0.5);}
+    70%{box-shadow:0 0 0 8px rgba(94,200,184,0);}
+    100%{box-shadow:0 0 0 0 rgba(94,200,184,0);}
+  }
+
+  h1{
+    font-family:var(--display);
+    font-weight:700;
+    font-size:clamp(42px, 7vw, 84px);
+    line-height:1.05;
+    letter-spacing:-0.02em;
+    max-width:900px;
+  }
+  h1 .accent{color:var(--accent);}
+
+  .hero-sub{
+    margin-top:24px;
+    font-size:18px;
+    color:var(--text-dim);
+    max-width:620px;
+    font-weight:300;
+  }
+
+  .hero-meta{
+    margin-top:48px;
+    display:flex;
+    gap:48px;
+    flex-wrap:wrap;
+  }
+  .meta-item{
+    font-family:var(--mono);
+    font-size:13px;
+  }
+  .meta-item .label{
+    color:var(--text-dim);
+    display:block;
+    font-size:11px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    margin-bottom:6px;
+  }
+  .meta-item .value{color:var(--text);}
+  .meta-item .value.accent-text{color:var(--accent);}
+
+  .hero-links{
+    margin-top:48px;
+    display:flex;
+    gap:16px;
+    flex-wrap:wrap;
+  }
+  .btn{
+    font-family:var(--mono);
+    font-size:13px;
+    padding:12px 24px;
+    border:1px solid var(--line-bright);
+    border-radius:4px;
+    transition:all .2s ease;
+    letter-spacing:0.04em;
+  }
+  .btn.primary{
+    background:var(--accent);
+    color:var(--bg);
+    border-color:var(--accent);
+    font-weight:500;
+  }
+  .btn.primary:hover{
+    background:transparent;
+    color:var(--accent);
+  }
+  .btn:not(.primary):hover{
+    border-color:var(--accent);
+    color:var(--accent);
+  }
+
+  /* ===== SECTION SHARED ===== */
+  section{padding:120px 0;border-top:1px solid var(--line);}
+  .section-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    margin-bottom:64px;
+    flex-wrap:wrap;
+    gap:16px;
+  }
+  .section-tag{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--accent);
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+  }
+  h2{
+    font-family:var(--display);
+    font-size:clamp(28px,4vw,42px);
+    font-weight:600;
+    letter-spacing:-0.01em;
+  }
+
+  /* ===== ABOUT ===== */
+  .about-grid{
+    display:grid;
+    grid-template-columns:1.4fr 1fr;
+    gap:64px;
+  }
+  .about-text p{
+    color:var(--text-dim);
+    font-size:17px;
+    margin-bottom:20px;
+    max-width:580px;
+  }
+  .about-text strong{color:var(--text);font-weight:500;}
+
+  .stack-panel{
+    background:var(--bg-elevated);
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:28px;
+  }
+  .stack-panel h3{
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--teal);
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    margin-bottom:18px;
+  }
+  .stack-group{margin-bottom:18px;}
+  .stack-group:last-child{margin-bottom:0;}
+  .stack-group .group-label{
+    font-size:12px;
+    color:var(--text-dim);
+    margin-bottom:8px;
+    font-family:var(--mono);
+  }
+  .pill-row{display:flex;flex-wrap:wrap;gap:6px;}
+  .pill{
+    font-family:var(--mono);
+    font-size:11px;
+    padding:4px 10px;
+    border:1px solid var(--line-bright);
+    border-radius:3px;
+    color:var(--text-dim);
+  }
+
+  /* ===== EXPERIENCE (PIPELINE) ===== */
+  .pipeline{
+    position:relative;
+    padding-left:48px;
+  }
+  .pipeline::before{
+    content:'';
+    position:absolute;
+    left:7px;top:8px;bottom:8px;
+    width:1px;
+    background:var(--line-bright);
+  }
+  .pipe-node{
+    position:relative;
+    padding-bottom:64px;
+  }
+  .pipe-node:last-child{padding-bottom:0;}
+  .pipe-node::before{
+    content:'';
+    position:absolute;
+    left:-48px;top:6px;
+    width:15px;height:15px;
+    border-radius:50%;
+    background:var(--bg);
+    border:2px solid var(--accent);
+  }
+  .pipe-node.current::before{
+    background:var(--accent);
+    box-shadow:0 0 0 4px rgba(255,159,69,0.15);
+  }
+
+  .pipe-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-bottom:6px;
+  }
+  .pipe-role{
+    font-family:var(--display);
+    font-size:22px;
+    font-weight:600;
+  }
+  .pipe-org{
+    color:var(--teal);
+    font-size:15px;
+    margin-bottom:16px;
+    font-family:var(--mono);
+  }
+  .pipe-date{
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--text-dim);
+    letter-spacing:0.05em;
+    white-space:nowrap;
+  }
+  .pipe-list{
+    list-style:none;
+    color:var(--text-dim);
+    font-size:15px;
+    max-width:760px;
+  }
+  .pipe-list li{
+    padding-left:18px;
+    position:relative;
+    margin-bottom:10px;
+  }
+  .pipe-list li::before{
+    content:'→';
+    position:absolute;
+    left:0;
+    color:var(--line-bright);
+    font-family:var(--mono);
+  }
+  .pipe-list li .metric{
+    color:var(--accent);
+    font-family:var(--mono);
+    font-weight:500;
+  }
+
+  /* ===== PROJECTS ===== */
+  .project-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(320px,1fr));
+    gap:24px;
+  }
+  .project-card{
+    background:var(--bg-elevated);
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:28px;
+    transition:border-color .2s ease, transform .2s ease;
+    display:flex;
+    flex-direction:column;
+  }
+  .project-card:hover{
+    border-color:var(--line-bright);
+    transform:translateY(-2px);
+  }
+  .project-card.featured{
+    grid-column:span 2;
+  }
+  @media (max-width:760px){
+    .project-card.featured{grid-column:span 1;}
+  }
+  .project-title{
+    font-family:var(--display);
+    font-size:20px;
+    font-weight:600;
+    margin-bottom:10px;
+  }
+  .project-desc{
+    color:var(--text-dim);
+    font-size:14.5px;
+    margin-bottom:18px;
+    flex-grow:1;
+  }
+  .project-desc .metric{color:var(--accent);font-family:var(--mono);font-weight:500;}
+  .tech-row{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;}
+  .tech-pill{
+    font-family:var(--mono);
+    font-size:11px;
+    padding:4px 10px;
+    background:rgba(94,200,184,0.08);
+    color:var(--teal);
+    border-radius:3px;
+    border:1px solid rgba(94,200,184,0.2);
+  }
+  .project-link{
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--text-dim);
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    transition:color .2s ease;
+  }
+  .project-link:hover{color:var(--accent);}
+
+  /* ===== RESEARCH ===== */
+  .research-list{display:flex;flex-direction:column;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:6px;overflow:hidden;}
+  .research-item{
+    background:var(--bg-elevated);
+    padding:28px;
+    display:grid;
+    grid-template-columns:auto 1fr auto;
+    gap:24px;
+    align-items:center;
+  }
+  @media (max-width:700px){
+    .research-item{grid-template-columns:1fr;gap:12px;}
+  }
+  .research-tag{
+    font-family:var(--mono);
+    font-size:11px;
+    color:var(--accent);
+    border:1px solid rgba(255,159,69,0.3);
+    padding:4px 10px;
+    border-radius:3px;
+    white-space:nowrap;
+    height:fit-content;
+  }
+  .research-title{
+    font-family:var(--display);
+    font-size:17px;
+    font-weight:600;
+    margin-bottom:6px;
+  }
+  .research-desc{color:var(--text-dim);font-size:14px;}
+  .research-link{
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--teal);
+    white-space:nowrap;
+  }
+  .research-link:hover{color:var(--accent);}
+
+  /* ===== CONTACT ===== */
+  .contact-section{text-align:center;}
+  .contact-section h2{margin-bottom:16px;}
+  .contact-section p{
+    color:var(--text-dim);
+    max-width:480px;
+    margin:0 auto 40px;
+    font-size:16px;
+  }
+  .contact-links{
+    display:flex;
+    justify-content:center;
+    gap:16px;
+    flex-wrap:wrap;
+  }
+
+  footer{
+    border-top:1px solid var(--line);
+    padding:32px 0;
+    text-align:center;
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--text-dim);
+  }
+
+  @media (max-width:760px){
+    .about-grid{grid-template-columns:1fr;}
+    .pipeline{padding-left:32px;}
+    .pipe-node::before{left:-32px;}
+    .nav-links{gap:18px;}
+    .wrap{padding:0 20px;}
+    section{padding:80px 0;}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .eyebrow::before{animation:none;}
+    *{transition:none !important;}
+  }
+</style>
 </head>
-
 <body>
 
-  <!--LIVE CLOCK (TOP RIGHT)-->
-  <div class="clock" id="clock"></div>
-
-  <!--TOP ANCHOR NAVIGATION-->
-  <nav class="top-nav">
-    <a href="#about">About</a>
-    <a href="#experience">Experience</a>
-    <a href="#projects">Projects</a>
-    <a href="#research">Research</a>
+<header>
+  <nav>
+    <a href="#" class="logo">sai_praneeth.dev</a>
+    <div class="nav-links">
+      <a href="#about">about</a>
+      <a href="#experience">experience</a>
+      <a href="#projects">projects</a>
+      <a href="#research">research</a>
+      <a href="#contact">contact</a>
+    </div>
+    <div class="nav-right">
+      <span class="clock" id="clock"></span>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark and light theme">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      </button>
+    </div>
   </nav>
+</header>
 
-  <!--HERO / INTRO SECTION-->
-  <section class="hero" id="home">
-    <h1>Venkata Mani Sai Praneeth Chidella</h1>
-    <p class="subtitle">Software Engineer | AI / ML | Data</p>
-
-    <p class="description">
-      Building scalable software systems, applied machine learning solutions,
-      and data-driven products with real-world impact.
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="wrap hero-content">
+    <div class="eyebrow">Open to relocation · H-1B sponsorship required</div>
+    <h1>Building AI systems that turn <span class="accent">raw signals</span> into reliable decisions.</h1>
+    <p class="hero-sub">
+      AI Engineer with 4+ years shipping LLM pipelines, fraud-detection models, and
+      RAG systems into production — from Walmart's recommendation stack to a
+      from-scratch insurance claims platform.
     </p>
 
-    <div class="buttons">
-      <a href="#" class="btn primary">Resume</a>
-      <a href="https://github.com/CH-sai-praneeth" class="btn">GitHub</a>
-      <a href="https://www.linkedin.com/in/ch-sai-praneeth" class="btn">LinkedIn</a>
+    <div class="hero-meta">
+      <div class="meta-item">
+        <span class="label">Currently</span>
+        <span class="value">AI Engineer @ Walmart</span>
+      </div>
+      <div class="meta-item">
+        <span class="label">Latency benchmarks hit</span>
+        <span class="value accent-text">&lt;100ms inference</span>
+      </div>
+      <div class="meta-item">
+        <span class="label">Published research</span>
+        <span class="value">2 papers · IEEE / ResearchGate</span>
+      </div>
     </div>
-  </section>
 
-  <!--ABOUT ME-->
-  <section class="section" id="about">
-    <h2>About Me</h2>
-
-    <div class="card">
-      <p>
-        I’m a Computer Science graduate with a strong interest in building
-        real-world software systems and applied machine learning solutions.
-        My experience spans data analytics, backend development, and
-        computer vision, with hands-on work in both startup and academic
-        environments.
-      </p>
-
-      <p style="margin-top: 14px;">
-        I enjoy working on problems where engineering meets impact —
-        whether that’s improving business workflows, designing scalable
-        systems, or experimenting with intelligent models.
-      </p>
+    <div class="hero-links">
+      <a href="#projects" class="btn primary">View Projects</a>
+      <a href="#" class="btn">Download Resume</a>
+      <a href="https://github.com/CH-sai-praneeth" class="btn" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://www.linkedin.com/in/ch-sai-praneeth" class="btn" target="_blank" rel="noopener">LinkedIn</a>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!--FEATURED EXPERIENCE-->
-  <section class="section" id="experience">
-    <h2>Featured Experience</h2>
-
-    <div class="card">
-      <h3>Smart Claim AI</h3>
-      <p class="card-subtitle">Data & Machine Learning Engineer</p>
-
-      <ul>
-        <li>Built analytics pipelines and ML workflows to improve insurance claim processing.</li>
-        <li>Designed dashboards and KPI metrics used by product and operations teams.</li>
-        <li>Worked with real production data to deliver measurable business impact.</li>
-      </ul>
-
-      <p class="tech">Tech: Python, SQL, Machine Learning, Tableau</p>
+<section id="about">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="section-tag">01 · About</div>
+        <h2>From research to production</h2>
+      </div>
     </div>
-  </section>
 
-  <!-- PROJECTS-->
-  <section class="section" id="projects">
-    <h2>Flagship Projects</h2>
-    
-    <!-- PROJECT 1 -->
-    <div class="card project-card">
-      <h3>Object Detection for Home Security</h3>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>
+          I'm an AI Engineer with <strong>4+ years</strong> of experience across
+          fraud detection, recommendation systems, computer vision, and LLM-based
+          applications. My MS in Computer Science from <strong>SUNY Buffalo</strong> (2025)
+          built on a foundation in deep learning, statistical modeling, and
+          data-intensive systems.
+        </p>
+        <p>
+          At <strong>Walmart</strong>, I work on the full ML lifecycle — from search
+          and personalization pipelines to MLOps infrastructure on Vertex AI and
+          Kubernetes. Earlier, at <strong>Maxgen Technologies</strong>, I built a
+          real-time fraud detection engine processing 10,000+ transactions daily
+          at 94% precision.
+        </p>
+        <p>
+          I also co-built <strong>Smart Claim AI</strong>, an insurance claims platform
+          combining GPT-4 Vision and the Claude API in a RAG pipeline — and I've
+          published two papers on low-resource NLP for Telugu, including a
+          98%-accuracy idiomatic sentence classifier.
+        </p>
+      </div>
 
-      <div class="project-layout">
-        <div class="project-text">
-          <p>
-            Real-time computer vision system using YOLO models to detect people and
-            dangerous objects with automated alerting and live video processing.
-          </p>
-
-          <ul>
-            <li>Trained and evaluated YOLO-based models on a custom dataset.</li>
-            <li>Integrated OpenCV pipelines for real-time video inference.</li>
-            <li>Designed alert logic for security-relevant object detection.</li>
-          </ul>
-
-          <p class="tech">Tech: Python, PyTorch, OpenCV, YOLO</p>
-          <a href="#" class="link">View on GitHub →</a>
+      <div class="stack-panel">
+        <h3>Core Stack</h3>
+        <div class="stack-group">
+          <div class="group-label">LLM &amp; Orchestration</div>
+          <div class="pill-row">
+            <span class="pill">LangGraph</span>
+            <span class="pill">LangChain</span>
+            <span class="pill">GPT-4o / Vision</span>
+            <span class="pill">Claude 3.5</span>
+            <span class="pill">RAG</span>
+          </div>
         </div>
-
-        <!-- DEMO PLACEHOLDER -->
-        <div class="project-visual">
-          <div class="demo-placeholder">
-            Demo / Architecture Diagram
+        <div class="stack-group">
+          <div class="group-label">ML &amp; Deep Learning</div>
+          <div class="pill-row">
+            <span class="pill">PyTorch</span>
+            <span class="pill">XGBoost</span>
+            <span class="pill">Transformers</span>
+            <span class="pill">SHAP / LIME</span>
+          </div>
+        </div>
+        <div class="stack-group">
+          <div class="group-label">Infra &amp; MLOps</div>
+          <div class="pill-row">
+            <span class="pill">AWS</span>
+            <span class="pill">Kubernetes</span>
+            <span class="pill">Docker</span>
+            <span class="pill">MLflow</span>
+            <span class="pill">FastAPI</span>
+          </div>
+        </div>
+        <div class="stack-group">
+          <div class="group-label">Data</div>
+          <div class="pill-row">
+            <span class="pill">PySpark</span>
+            <span class="pill">PostgreSQL</span>
+            <span class="pill">Vector DBs</span>
+            <span class="pill">Tableau</span>
           </div>
         </div>
       </div>
     </div>
-    <!-- PROJECT 2 -->
-    <div class="card project-card">
-      <h3>Inventory Management System</h3>
+  </div>
+</section>
 
-      <div class="project-layout">
-        <div class="project-text">
-          <p>
-            Backend-driven inventory and order tracking system with normalized SQL
-            schema and analytics for operational insights.
-          </p>
-
-          <ul>
-            <li>Designed normalized relational database schema.</li>
-            <li>Implemented CRUD APIs and reporting queries.</li>
-            <li>Analyzed inventory trends and bottlenecks.</li>
-          </ul>
-
-          <p class="tech">Tech: PostgreSQL, SQL, Flask</p>
-          <a href="#" class="link">View on GitHub →</a>
-        </div>
-
-        <!-- DEMO PLACEHOLDER -->
-        <div class="project-visual">
-          <div class="demo-placeholder">
-            Schema / Dashboard Preview
-          </div>
-        </div>
+<section id="experience">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="section-tag">02 · Experience</div>
+        <h2>The pipeline so far</h2>
       </div>
     </div>
-  </section>
 
+    <div class="pipeline">
+      <div class="pipe-node current">
+        <div class="pipe-head">
+          <div>
+            <div class="pipe-role">AI Engineer</div>
+            <div class="pipe-org">Walmart, USA</div>
+          </div>
+          <div class="pipe-date">Aug 2024 — Present</div>
+        </div>
+        <ul class="pipe-list">
+          <li>Built LLM-based search and personalization pipelines, cutting average search latency by <span class="metric">35%</span> and lifting click-through rates by <span class="metric">18%</span>.</li>
+          <li>Developed inventory ML models reducing stockouts by <span class="metric">22%</span> and excess holding costs by <span class="metric">15%</span>.</li>
+          <li>Set up MLOps workflows on Vertex AI and Kubernetes, cutting manual redeployment effort by <span class="metric">70%</span> while maintaining <span class="metric">99.8%</span> uptime.</li>
+          <li>Built collaborative-filtering recommendation systems contributing to a <span class="metric">12%</span> lift in conversion and <span class="metric">9%</span> rise in session engagement.</li>
+          <li>Designed reinforcement-learning agents for logistics, cutting delivery time by <span class="metric">11%</span> and fuel costs by <span class="metric">8%</span>.</li>
+          <li>Deployed a YOLO + OpenCV shelf-monitoring system on edge devices, reducing manual audit time by <span class="metric">45%</span>.</li>
+        </ul>
+      </div>
 
-  <!--RESEARCH & EXPERIMENTS-->
-  <section class="section" id="research">
-    <h2>Research & Experiments</h2>
+      <div class="pipe-node">
+        <div class="pipe-head">
+          <div>
+            <div class="pipe-role">AI Engineer (Volunteer / Startup)</div>
+            <div class="pipe-org">Smart Claim AI, USA</div>
+          </div>
+          <div class="pipe-date">Jan 2024 — Jul 2024</div>
+        </div>
+        <ul class="pipe-list">
+          <li>Built the full-stack foundation of an AI insurance claims platform — React, Node.js/Express, MongoDB Atlas — with OAuth (Google, Facebook, GitHub).</li>
+          <li>Integrated GPT-4 Vision for damage analysis, connected to the Claude API for structured, adjuster-ready claim reports.</li>
+          <li>Built a RAG pipeline grounding outputs in jurisdiction-specific policy documents to prevent hallucinated claim decisions.</li>
+          <li>Orchestrated two AI APIs in one pipeline, combining multimodal image analysis with report generation.</li>
+        </ul>
+      </div>
 
-    <div class="card">
-      <h3>Multilingual NLP – Telugu Idiomatic Sentence Classification</h3>
-      <p>
-        Published NLP research using ensemble transformer models for low-resource language classification.
-      </p>
-      <p class="tech">Tech: Transformers, PyTorch, NLP</p>
-      <a href="#" class="link">Paper / GitHub →</a>
+      <div class="pipe-node">
+        <div class="pipe-head">
+          <div>
+            <div class="pipe-role">AI Engineer</div>
+            <div class="pipe-org">Maxgen Technologies, India</div>
+          </div>
+          <div class="pipe-date">Dec 2021 — Dec 2023</div>
+        </div>
+        <ul class="pipe-list">
+          <li>Engineered a real-time fraud detection engine (Random Forest + XGBoost) processing 10,000+ daily transactions at <span class="metric">94%</span> precision.</li>
+          <li>Built a 50+ feature behavioral pipeline, improving fraud-pattern detection by <span class="metric">20%</span>.</li>
+          <li>Resolved class imbalance with SMOTE/ADASYN, reaching <span class="metric">0.89</span> AUC-ROC in production.</li>
+          <li>Integrated SHAP &amp; LIME for explainable, audit-ready fraud reasoning codes.</li>
+          <li>Deployed models as Dockerized FastAPI microservices at sub-<span class="metric">100ms</span> latency.</li>
+          <li>Built an MLflow + CI/CD retraining loop and drift monitoring, reducing false negatives by <span class="metric">60%</span> over 12 months.</li>
+          <li>Built an OCR + Transformers document pipeline reaching <span class="metric">91%</span> extraction accuracy, cutting manual entry by <span class="metric">55%</span>.</li>
+        </ul>
+      </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!--INTERESTS (SMALL, HUMAN)-->
-  <section class="section" id="interests">
-    <h2>Interests</h2>
-
-    <div class="card">
-      <p>
-        Applied AI systems, AI safety, system design, understanding how
-        large-scale software and organizations operate, and continuous
-        learning through real-world projects.
-      </p>
+<section id="projects">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="section-tag">03 · Projects</div>
+        <h2>Things I've shipped</h2>
+      </div>
     </div>
-  </section>
 
-  <!--FOOTER-->
-  <footer>
-    <p>© 2025 Venkata Mani Sai Praneeth Chidella</p>
-  </footer>
+    <div class="project-grid">
+      <div class="project-card featured">
+        <div class="project-title">Smart Claim AI</div>
+        <div class="project-desc">
+          AI-powered insurance claims platform combining <span class="metric">GPT-4 Vision</span> for
+          damage image analysis with the Claude API for structured claim report
+          generation. A RAG layer grounds every output in jurisdiction-specific
+          policy documents — full-stack with OAuth across Google, Facebook, and GitHub.
+        </div>
+        <div class="tech-row">
+          <span class="tech-pill">React</span>
+          <span class="tech-pill">Node.js</span>
+          <span class="tech-pill">MongoDB</span>
+          <span class="tech-pill">GPT-4 Vision</span>
+          <span class="tech-pill">Claude API</span>
+          <span class="tech-pill">RAG</span>
+        </div>
+        <a href="#" class="project-link">View on GitHub →</a>
+      </div>
 
-  <!--CLOCK SCRIPT-->
-  <script>
-    function updateClock() {
-      const now = new Date();
-      const time = now.toLocaleTimeString([], {
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit'
-      });
-      document.getElementById('clock').textContent = time;
+      <div class="project-card">
+        <div class="project-title">CrimeScope</div>
+        <div class="project-desc">
+          Fully local RAG-based crime analysis chatbot on Buffalo crime data,
+          using FAISS vector search and Mistral 7B via Ollama. Zero cloud
+          dependency, <span class="metric">sub-second</span> query latency.
+        </div>
+        <div class="tech-row">
+          <span class="tech-pill">Flask</span>
+          <span class="tech-pill">LangChain</span>
+          <span class="tech-pill">Ollama</span>
+          <span class="tech-pill">FAISS</span>
+          <span class="tech-pill">Scikit-learn</span>
+        </div>
+        <a href="#" class="project-link">View on GitHub →</a>
+      </div>
+
+      <div class="project-card">
+        <div class="project-title">Credit Card Fraud Detection</div>
+        <div class="project-desc">
+          Anomaly detection pipeline combining supervised and unsupervised
+          methods, improving fraud recall by <span class="metric">22%</span>
+          while keeping false positives low — with a live Tableau monitoring dashboard.
+        </div>
+        <div class="tech-row">
+          <span class="tech-pill">Scikit-learn</span>
+          <span class="tech-pill">Random Forest</span>
+          <span class="tech-pill">Isolation Forest</span>
+          <span class="tech-pill">Tableau</span>
+        </div>
+        <a href="#" class="project-link">View on GitHub →</a>
+      </div>
+
+      <div class="project-card">
+        <div class="project-title">Diabetes Risk Prediction</div>
+        <div class="project-desc">
+          Distributed Random Forest + Gradient Boosted Tree pipeline reaching
+          <span class="metric">99.72%</span> accuracy, cutting training time by
+          <span class="metric">40%</span> via PySpark — deployed as an
+          interactive Streamlit app with automated PDF reports.
+        </div>
+        <div class="tech-row">
+          <span class="tech-pill">PySpark</span>
+          <span class="tech-pill">Scikit-learn</span>
+          <span class="tech-pill">Streamlit</span>
+        </div>
+        <a href="#" class="project-link">View on GitHub →</a>
+      </div>
+
+      <div class="project-card">
+        <div class="project-title">Local RAG &amp; Privacy-First QA</div>
+        <div class="project-desc">
+          Fully local retrieval pipeline using Ollama and ChromaDB to remove
+          cloud privacy risk and API latency, with semantic chunking and
+          cosine-similarity retrieval.
+        </div>
+        <div class="tech-row">
+          <span class="tech-pill">Ollama</span>
+          <span class="tech-pill">ChromaDB</span>
+          <span class="tech-pill">Semantic Chunking</span>
+        </div>
+        <a href="#" class="project-link">View on GitHub →</a>
+      </div>
+
+      <div class="project-card">
+        <div class="project-title">OAuth Authentication System</div>
+        <div class="project-desc">
+          Full-stack OAuth system supporting Google, Facebook, and GitHub login —
+          React frontend on Vercel, Node.js backend on Render.
+        </div>
+        <div class="tech-row">
+          <span class="tech-pill">React</span>
+          <span class="tech-pill">Node.js</span>
+          <span class="tech-pill">Vercel</span>
+          <span class="tech-pill">Render</span>
+        </div>
+        <a href="#" class="project-link">View on GitHub →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="research">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="section-tag">04 · Research</div>
+        <h2>Published work</h2>
+      </div>
+    </div>
+
+    <div class="research-list">
+      <div class="research-item">
+        <div class="research-tag">IEEE · 2023</div>
+        <div>
+          <div class="research-title">Telugu Idiomatic Sentence Classification</div>
+          <div class="research-desc">
+            Deep learning ensemble model classifying Telugu idiomatic vs. literal
+            expressions at <span style="color:var(--accent);font-family:var(--mono);">98% accuracy</span>,
+            addressing low-resource NLP for regional Indian languages.
+          </div>
+        </div>
+        <a href="https://ieeexplore.ieee.org/document/10134038" class="research-link" target="_blank" rel="noopener">View Paper →</a>
+      </div>
+
+      <div class="research-item">
+        <div class="research-tag">ResearchGate · 2024</div>
+        <div>
+          <div class="research-title">Detection of Offensive Text in Memes</div>
+          <div class="research-desc">
+            Multimodal deep learning pipeline combining computer vision and NLP
+            to detect offensive and hateful text embedded in meme images.
+          </div>
+        </div>
+        <a href="https://www.researchgate.net/publication/382902888" class="research-link" target="_blank" rel="noopener">View Paper →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="contact-section">
+  <div class="wrap">
+    <div class="section-tag" style="justify-content:center;display:flex;margin-bottom:16px;">05 · Contact</div>
+    <h2>Let's build something.</h2>
+    <p>
+      Open to AI/ML Engineer, SDE, and Data roles across the US.
+      H-1B sponsorship required. Reach out — I respond fast.
+    </p>
+    <div class="contact-links">
+      <a href="mailto:chsaipraneeth0@gmail.com" class="btn primary">chsaipraneeth0@gmail.com</a>
+      <a href="https://www.linkedin.com/in/ch-sai-praneeth" class="btn" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/CH-sai-praneeth" class="btn" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © 2026 Venkata Mani Sai Praneeth Chidella — Built with intent, deployed on GitHub Pages.
+</footer>
+
+<script>
+  // Live clock
+  function updateClock(){
+    const now = new Date();
+    const h = String(now.getHours() % 12 || 12).padStart(2,'0');
+    const m = String(now.getMinutes()).padStart(2,'0');
+    const s = String(now.getSeconds()).padStart(2,'0');
+    const ampm = now.getHours() >= 12 ? 'PM' : 'AM';
+    document.getElementById('clock').textContent = `${h}:${m}:${s} ${ampm}`;
+  }
+  updateClock();
+  setInterval(updateClock, 1000);
+
+  // Theme toggle
+  const root = document.documentElement;
+  const toggle = document.getElementById('themeToggle');
+  const saved = localStorage.getItem('theme');
+  if(saved){
+    root.setAttribute('data-theme', saved);
+  } else if(window.matchMedia('(prefers-color-scheme: light)').matches){
+    root.setAttribute('data-theme', 'light');
+  }
+  toggle.addEventListener('click', () => {
+    const current = root.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+    const next = current === 'light' ? 'dark' : 'light';
+    if(next === 'dark'){
+      root.removeAttribute('data-theme');
+    } else {
+      root.setAttribute('data-theme', 'light');
     }
-
-    setInterval(updateClock, 1000);
-    updateClock();
-  </script>
-
+    localStorage.setItem('theme', next);
+  });
+</script>
 </body>
 </html>
